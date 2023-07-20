@@ -1,0 +1,8 @@
+LTO_ENABLE = yes
+MOUSEKEY_ENABLE = no
+NKRO_ENABLE = yes            # Nkey Rollover
+RGBLIGHT_ENABLE = yes
+VIA_ENABLE = yes
+VIAL_ENABLE = yes
+TAP_DANCE_ENABLE = no
+QMK_SETTINGS = no
