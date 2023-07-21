@@ -6,3 +6,4 @@ VIA_ENABLE = yes
 VIAL_ENABLE = yes
 TAP_DANCE_ENABLE = no
 QMK_SETTINGS = no
+DEBOUNCE_TYPE = sym_defer_pk

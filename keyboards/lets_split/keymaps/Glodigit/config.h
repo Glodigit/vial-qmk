@@ -35,6 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LIMIT_VAL 127 //Just so that I don't max out power useage.
 
 //#define ONESHOT_TAP_TOGGLE
-
-#undef  DEBOUNCING_DELAY //gateron clears are too sensitive
-#define DEBOUNCING_DELAY 12
+//gateron clears are too sensitive and the o-rings dont help in that regard.
+#undef  DEBOUNCING_DELAY 
+#define DEBOUNCING_DELAY 18
