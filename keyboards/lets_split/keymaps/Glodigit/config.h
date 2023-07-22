@@ -37,4 +37,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define ONESHOT_TAP_TOGGLE
 //gateron clears are too sensitive and the o-rings dont help in that regard.
 #undef  DEBOUNCING_DELAY 
-#define DEBOUNCING_DELAY 18
+#define DEBOUNCING_DELAY 30
