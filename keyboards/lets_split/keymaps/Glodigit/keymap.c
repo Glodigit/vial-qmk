@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "taipo.h"
 
 //Glodigit Default Keymap v1.0
 
@@ -9,21 +10,16 @@
 #define _BASE     0
 #define _QWERTY   1
 #define _F360     2
+#define _TAIPO    3
 #define _NUMBER   4
 #define _FUNCTION 5
 
-#define FN  MO(_FUNCTION)
+#define FN        MO(_FUNCTION)
+#define XXXX      KC_NO
 
-/*
-enum custom_keycodes {
-  BASE = SAFE_RANGE,
-  EXT_F360
-};*/
 
-#define XXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
 
 /* Base Layer
  * ,------------------------------------------  ------------------------------------------.
@@ -80,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 
-/* Layer [3]
+/* Taipo Layer
  * ,------------------------------------------  ------------------------------------------.
  * |      |      |      |      |      |      |  |      |      |      |      |      |      |
  * |------+------+------+------+------+------|  |------+------+------+------+------+------|
@@ -88,14 +84,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|  |------+------+------+------+------+------|
  * |      |      |      |      |      |      |  |      |      |      |      |      |      |
  * |------+------+------+------+------+------|  |------+------+------+------+------+------|
- * |      |      |      |      |      |      |  |      |      |      |      |      |      |
+ * |      |      |      |      |      |  FN  |  |  FN  |      |      |      |      |      |
  * `------------------------------------------  ------------------------------------------'
 */
-[3] = LAYOUT_ortho_4x12( \
+[_TAIPO] = LAYOUT_ortho_4x12( \
   _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,  \
   _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,  \
   _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,  \
-  _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______   \
+  _______, _______, _______, _______, _______, FN     ,     FN     , _______, _______, _______, _______, _______   \
 ),
 
 /* Number Layer
@@ -154,29 +150,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
  */ 
 
-
-/* Fusion 360 Sketch layer [OLD]
- * ,------------------------------------------
- * |  TAB |SFT+Q |SFT+W |SFT+E | 123  |ASSMBL|
- * |------+------+------+------+------+------|
- * |  ESC |SFT+A |SFT+S |SFT+D |SFT+F |  O   |
- * |------+------+------+------+------+------|
- * | Exit |SFT+Z |SFT+X |SFT+| |SFT+V |  P   |
- * |------+------+------+------+------+------|
- * |      |  R   |  C   |  L   |  D   |  X   |
- * `------------------------------------------
-
-// The P key and ; are swapped in registry
-[_F360] = LAYOUT ( \
-  KC_TAB,   LSFT(KC_Q), LSFT(KC_W), LSFT(KC_E),      PADtg,      XXXX,      XXXX,    XXXX,    XXXX,    XXXX,    XXXX,    XXXX, \
-  KC_ESC,   LSFT(KC_A), LSFT(KC_S), LSFT(KC_D),      LSFT(KC_F), KC_O,        XXXX,    XXXX,    XXXX,    XXXX,    XXXX,    XXXX, \
-  EXT_F360, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_BSLS),   LSFT(KC_V), KC_SCLN,     XXXX,    XXXX,    XXXX,    XXXX,    XXXX,    XXXX, \
-  XXXX,     KC_R,       KC_C,       KC_L,            KC_D,       KC_X,        XXXX,    XXXX,    XXXX,    XXXX,    XXXX,    XXXX  \
-),
- */
-
-
-
 };
 
 
@@ -185,7 +158,12 @@ void matrix_init_user() {
     rgblight_increase_val();
 }
 
+
 void matrix_scan_user(void) {
+  
+  //taipo_matrix_scan_user();
+  
+  
   #ifdef RGBLIGHT_ENABLE
 
   static uint8_t old_layer = 255;
@@ -199,7 +177,7 @@ void matrix_scan_user(void) {
   };
 
   if (
-    old_layer != new_layer || 
+    old_layer   != new_layer   || 
     old_lock[0] != new_lock[0] ||
     old_lock[1] != new_lock[1] ||
     old_lock[2] != new_lock[2]) {
@@ -213,9 +191,27 @@ void matrix_scan_user(void) {
             rgblight_setrgb_range(0x9, 0x0, 0x3, 20, 24);
           } 
         break;
-      case _FUNCTION:
-          rgblight_setrgb(0x00, 0x00, 0x15);
+
+      case _QWERTY:
+          rgblight_setrgb(0x12, 0x6, 0x00); //nice golden shade of yellow
+          if (new_lock[1]) {
+            // Corner Pink
+            rgblight_setrgb_range(0x9, 0x0, 0x3, 10, 14);
+            rgblight_setrgb_range(0x9, 0x0, 0x3, 20, 24);
+          } 
           break;
+
+      case _TAIPO:
+          rgblight_setrgb(0x9, 0x03, 0x9);
+          break;
+
+      case _F360:
+          rgblight_setrgb(0x18, 0x06, 0x00); //Orange
+          // Corner whites
+          rgblight_setrgb_range(0x9, 0x9, 0x9, 10, 14);
+          rgblight_setrgb_range(0x9, 0x9, 0x9, 20, 24);
+          break;
+
       case _NUMBER:
           rgblight_setrgb(0x00, 0x15, 0x9); //Mint
           if (new_lock[0]) {
@@ -224,29 +220,11 @@ void matrix_scan_user(void) {
             rgblight_setrgb_range(0x9, 0x9, 0x9, 20, 24);
           } 
           break;
-      case _F360:
-          rgblight_setrgb(0x18, 0x06, 0x00); //Orange
-          // Corner whites
-          rgblight_setrgb_range(0x9, 0x9, 0x9, 10, 14);
-          rgblight_setrgb_range(0x9, 0x9, 0x9, 20, 24);
-          break;
-      case _QWERTY:
-          rgblight_setrgb(0x18, 0x9, 0x00); //nice golden shade of yellow
-          if (new_lock[1]) {
-            // Corner Pink
-            rgblight_setrgb_range(0x9, 0x0, 0x3, 10, 14);
-            rgblight_setrgb_range(0x9, 0x0, 0x3, 20, 24);
-          } 
-          break;        
-      
 
-      //case _ASSEMBLE:
-          //rgblight_setrgb(0x24, 0x06, 0x00); //Orange
-          ////middle lilac
-          //rgblight_setrgb_at(0x11, 0x04, 0x11, 7);
-          //rgblight_setrgb_at(0x11, 0x04, 0x11, 8);
-          //rgblight_setrgb_at(0x11, 0x04, 0x11, 9);
-      break;
+      case _FUNCTION:
+          rgblight_setrgb(0x00, 0x00, 0x15);
+          break;      
+      
     }
 
     //one of the leds is slightly defective, so make that one black.
@@ -260,9 +238,9 @@ void matrix_scan_user(void) {
     old_lock[1] = new_lock[1];
     old_lock[2] = new_lock[2];
   }
-  
 
   #endif //RGBLIGHT_ENABLE
+  
 };
 
 /*
@@ -279,3 +257,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }*/
+
+/*
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (IS_LAYER_ON(_TAIPO)) {
+        return taipo_process_record_user(keycode, record);
+    } else {
+        return true;
+    }
+};
+*/
+

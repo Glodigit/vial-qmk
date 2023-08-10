@@ -38,3 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //gateron clears are too sensitive and the o-rings dont help in that regard.
 #undef  DEBOUNCING_DELAY 
 #define DEBOUNCING_DELAY 36
+
+// Taipo
+//#define TAIPO_TAP_TIMEOUT 150
+#define ONESHOT_TIMEOUT 1000

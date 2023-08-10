@@ -1,4 +1,86 @@
 {
+    "customKeycodes": [
+        {"name": "TL-Pink",
+         "title": "Top Left Pinky",
+         "shortName": "TP_TLP"
+        },
+        {"name": "TL-Ring",
+         "title": "Top Left Ring",
+         "shortName": "TP_TLR"
+        },
+        {"name": "TL-Mid",
+         "title": "Top Left Middle",
+         "shortName": "TP_TLM"
+        },
+        {"name": "TL-Indx",
+         "title": "Top Left Index",
+         "shortName": "TP_TLI"
+        },
+        {"name": "BL-Pink",
+         "title": "Bottom Left Pinky",
+         "shortName": "TP_BLP"
+        },
+        {"name": "BL-Ring",
+         "title": "Bottom Left Ring",
+         "shortName": "TP_BLR"
+        },
+        {"name": "BL-Mid",
+         "title": "Bottom Left Middle",
+         "shortName": "TP_BLM"
+        },
+        {"name": "BL-Indx",
+         "title": "Bottom Left Index",
+         "shortName": "TP_BLI"
+        },
+        {"name": "L-Inner",
+         "title": "Left Inner Thumb",
+         "shortName": "TP_LIT"
+        },
+        {"name": "L-Outer",
+         "title": "Left Outer Thumb",
+         "shortName": "TP_LOT"
+        },
+        {"name": "TR-Pink",
+         "title": "Top Right Pinky",
+         "shortName": "TP_TRP"
+        },
+        {"name": "TR-Ring",
+         "title": "Top Right Ring",
+         "shortName": "TP_TRR"
+        },
+        {"name": "TR-Mid",
+         "title": "Top Right Middle",
+         "shortName": "TP_TRM"
+        },
+        {"name": "TR-Indx",
+         "title": "Top Right Index",
+         "shortName": "TP_TRI"
+        },
+        {"name": "BR-Pink",
+         "title": "Bottom Right Pinky",
+         "shortName": "TP_BRP"
+        },
+        {"name": "BR-Ring",
+         "title": "Bottom Right Ring",
+         "shortName": "TP_BRR"
+        },
+        {"name": "BR-Mid",
+         "title": "Bottom Right Middle",
+         "shortName": "TP_BRM"
+        },
+        {"name": "BR-Indx",
+         "title": "Bottom Right Index",
+         "shortName": "TP_BRI"
+        },
+        {"name": "R-Inner",
+         "title": "Right Inner Thumb",
+         "shortName": "TP_RIT"
+        },
+        {"name": "R-Outer",
+         "title": "Right Outer Thumb",
+         "shortName": "TP_ROT"
+        }
+    ],
     "lighting": "qmk_rgblight",
     "matrix": {
         "rows": 8,
