@@ -191,33 +191,52 @@ void matrix_scan_user(void) {
   static uint8_t old_layer = 255;
   uint8_t new_layer = biton32(layer_state);
 
-  if (old_layer != new_layer) {
+  static uint8_t old_lock[3] = {2, 2, 2};
+  uint8_t new_lock[3] = {
+    host_keyboard_leds() & (1<<USB_LED_NUM_LOCK),
+    host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK),
+    host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)
+  };
+
+  if (
+    old_layer != new_layer || 
+    old_lock[0] != new_lock[0] ||
+    old_lock[1] != new_lock[1] ||
+    old_lock[2] != new_lock[2]) {
     switch (new_layer) {
       case _BASE:
         //rgblight_setrgb(0x22, 0x22, 0x22);
         rgblight_enable(); //allows rgb brightness controls to work on layer
+        if (new_lock[1]) {
+            // Corner Pink
+            rgblight_setrgb_range(0x9, 0x0, 0x3, 10, 14);
+            rgblight_setrgb_range(0x9, 0x0, 0x3, 20, 24);
+          } 
         break;
       case _FUNCTION:
           rgblight_setrgb(0x00, 0x00, 0x15);
           break;
       case _NUMBER:
           rgblight_setrgb(0x00, 0x15, 0x9); //Mint
+          if (new_lock[0]) {
+            // Corner whites
+            rgblight_setrgb_range(0x9, 0x9, 0x9, 10, 14);
+            rgblight_setrgb_range(0x9, 0x9, 0x9, 20, 24);
+          } 
           break;
       case _F360:
           rgblight_setrgb(0x18, 0x06, 0x00); //Orange
           // Corner whites
-          rgblight_setrgb_at(0x9, 0x9, 0x9, 10);
-          rgblight_setrgb_at(0x9, 0x9, 0x9, 11);
-          rgblight_setrgb_at(0x9, 0x9, 0x9, 12);
-          rgblight_setrgb_at(0x9, 0x9, 0x9, 13);
-
-          rgblight_setrgb_at(0x9, 0x9, 0x9, 20);
-          rgblight_setrgb_at(0x9, 0x9, 0x9, 21);
-          rgblight_setrgb_at(0x9, 0x9, 0x9, 22);
-          rgblight_setrgb_at(0x9, 0x9, 0x9, 23);
+          rgblight_setrgb_range(0x9, 0x9, 0x9, 10, 14);
+          rgblight_setrgb_range(0x9, 0x9, 0x9, 20, 24);
           break;
       case _QWERTY:
           rgblight_setrgb(0x18, 0x9, 0x00); //nice golden shade of yellow
+          if (new_lock[1]) {
+            // Corner Pink
+            rgblight_setrgb_range(0x9, 0x0, 0x3, 10, 14);
+            rgblight_setrgb_range(0x9, 0x0, 0x3, 20, 24);
+          } 
           break;        
       
 
@@ -237,7 +256,11 @@ void matrix_scan_user(void) {
 
 
     old_layer = new_layer;
+    old_lock[0] = new_lock[0];
+    old_lock[1] = new_lock[1];
+    old_lock[2] = new_lock[2];
   }
+  
 
   #endif //RGBLIGHT_ENABLE
 };
