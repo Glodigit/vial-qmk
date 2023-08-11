@@ -9,6 +9,7 @@
 #define TAIPO_TAP_TIMEOUT 150
 #endif
 
+/*
 enum taipo_keycode {
     TP_TLP = SAFE_RANGE,
     TP_TLR,
@@ -46,14 +47,11 @@ enum taipo_keycode {
     KC_MOD_ACS,
     KC_MOD_GACS,
 };
+*/
 
-/*
+// Split for Vial custom keycodes
 enum taipo_keycode {
-    #ifdef VIAL_ENABLE
     TP_TLP = QK_USER_0,
-    #else
-    TP_TLP = SAFE_RANGE,
-    #endif
     TP_TLR,
     TP_TLM,
     TP_TLI,
@@ -91,8 +89,6 @@ enum taipo_keycode_cont {
     KC_MOD_ACS,
     KC_MOD_GACS,
 };
-
-*/
 
 typedef struct {
     uint16_t keycode;

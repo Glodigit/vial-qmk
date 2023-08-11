@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "taipo.h"
+//#define TAIPO_ENABLE
 
 //Glodigit Default Keymap v1.0
 
@@ -21,13 +22,18 @@
 #define O_DATE    LSA(KC_D)
 #define O_TIME    LSA(KC_T)
 
-//#define TAIPO_ENABLE
-
 // Unicode
+#ifdef UNICODE_ENABLE
 #define PLUSMIN   UC(0x00B1) // ±
 #define DEGREE    UC(0x00B0) // °
 #define EMDASH    UC(0X2014) // —
 #define NOTEQUAL  UC(0X2260) // ≠
+#else 
+#define PLUSMIN   KC_NO
+#define DEGREE    KC_NO
+#define EMDASH    KC_NO
+#define NOTEQUAL  KC_NO
+#endif
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -105,6 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       TP_BLP,    XXXX,    XXXX,   TP_LIT,  TP_LOT, _______,     FN,   TP_ROT, TP_RIT, XXXX,   XXXX,   TP_BRP      \
 ),
 
+
 /* Number Layer
  * ,------------------------------------------  ------------------------------------------.
  * |      |      | 7    | 8    | 9    | +    |  | ±    | N7   | N8   | N9   |NENTER|      |
@@ -122,6 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_KP_SLASH,             KC_0,    KC_1,     KC_2,    KC_3,   KC_MINUS,     EMDASH,  KC_KP_3, KC_KP_2, KC_KP_1, KC_KP_0,         KC_NUBS,  \
   LCTL_T(KC_KP_ASTERISK), LSFT_T(KC_EQUAL), KC_LALT,  KC_LCTL, _______,    _______,     _______, _______, _______, _______, RSFT_T(KC_QUOT), _______   \
 ),
+
 
 /* Function Layer
  * ,------------------------------------------  ------------------------------------------.
@@ -216,7 +224,7 @@ void matrix_scan_user(void) {
           break;
 
       case _TAIPO:
-          rgblight_setrgb(0x9, 0x03, 0x9);
+          rgblight_setrgb(0x6, 0x02, 0x6);
           break;
 
       case _F360:
