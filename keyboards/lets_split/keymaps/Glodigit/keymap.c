@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "taipo.h"
-//#define TAIPO_ENABLE
 
 //Glodigit Default Keymap v1.0
 
@@ -34,6 +33,13 @@
 #define EMDASH    KC_NO
 #define NOTEQUAL  KC_NO
 #endif
+
+
+
+#ifndef VIAL_ENABLE
+#define TAIPO_ENABLE  // Taipo + Vial too large for Pro Micro
+#endif
+
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -181,11 +187,7 @@ void matrix_init_user() {
 
 
 void matrix_scan_user(void) {
-  
-  #ifdef TAIPO_ENABLE
-  taipo_matrix_scan_user();
-  #endif
-  
+ 
   #ifdef RGBLIGHT_ENABLE
 
   static uint8_t old_layer = 255;
@@ -261,8 +263,16 @@ void matrix_scan_user(void) {
     old_lock[2] = new_lock[2];
   }
 
-  #endif //RGBLIGHT_ENABLE
+  #endif //RGBLIGHT_ENABLE  
+   
+  #ifdef TAIPO_ENABLE
+  if (IS_LAYER_ON(_TAIPO)) {
+    taipo_matrix_scan_user();
+  }
+  #endif
   
+
+
 };
 
 /*

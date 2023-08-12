@@ -47,3 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Unicode
 #define UNICODE_SELECTED_MODES UNICODE_MODE_WINDOWS
+
+#ifdef NKRO_ENABLE
+#define FORCE_NKRO
+#endif
