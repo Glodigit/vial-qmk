@@ -42,7 +42,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCING_DELAY 36
 
 // Taipo
-//#define TAIPO_TAP_TIMEOUT 150
+#ifndef VIAL_ENABLE
+#define TAIPO_ENABLE  // Taipo + Vial too large for Pro Micro
+#endif
+
 #define ONESHOT_TIMEOUT 1000
 
 // Unicode

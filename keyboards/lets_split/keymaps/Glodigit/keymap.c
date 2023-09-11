@@ -1,12 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "taipo.h"
+#include "custom_keycodes.h"
 
-//Glodigit Default Keymap v1.0
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 #define _BASE     0
 #define _QWERTY   1
 #define _F360     2
@@ -33,13 +28,6 @@
 #define EMDASH    KC_NO
 #define NOTEQUAL  KC_NO
 #endif
-
-
-
-#ifndef VIAL_ENABLE
-#define TAIPO_ENABLE  // Taipo + Vial too large for Pro Micro
-#endif
-
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -179,15 +167,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 void matrix_init_user() {
-    #ifdef RGBLIGHT_ENABLE
-    rgblight_enable();
-    rgblight_increase_val();
-    #endif
+  #ifdef RGBLIGHT_ENABLE
+  rgblight_enable();
+  rgblight_increase_val();
+  #endif
 }
 
-
-void matrix_scan_user(void) {
- 
+void rgblight_user(void) {
   #ifdef RGBLIGHT_ENABLE
 
   static uint8_t old_layer = 255;
@@ -207,8 +193,8 @@ void matrix_scan_user(void) {
     old_lock[2] != new_lock[2]) {
     switch (new_layer) {
       case _BASE:
-        //rgblight_setrgb(0x22, 0x22, 0x22);
-        rgblight_enable(); //allows rgb brightness controls to work on layer
+        rgblight_setrgb(0x03, 0x03, 0x03);
+        //rgblight_enable(); //allows rgb brightness controls to work on layer
         if (new_lock[1]) {
             // Corner Pink
             rgblight_setrgb_range(0x9, 0x0, 0x3, 10, 14);
@@ -264,7 +250,10 @@ void matrix_scan_user(void) {
   }
 
   #endif //RGBLIGHT_ENABLE  
-   
+}
+
+void matrix_scan_user(void) {
+  rgblight_user();
   #ifdef TAIPO_ENABLE
   if (IS_LAYER_ON(_TAIPO)) {
     taipo_matrix_scan_user();

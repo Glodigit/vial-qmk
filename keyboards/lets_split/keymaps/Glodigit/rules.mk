@@ -8,3 +8,5 @@ MOUSEKEY_ENABLE = no
 TAP_DANCE_ENABLE = no
 QMK_SETTINGS = no
 DEBOUNCE_TYPE = sym_defer_pk
+
+SRC += taipo.c
