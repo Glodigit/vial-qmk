@@ -30,6 +30,7 @@
 #endif
 
 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Base Layer
@@ -173,6 +174,7 @@ void matrix_init_user() {
   #endif
 }
 
+bool rgblight_user_refresh = false;
 void rgblight_user(void) {
   #ifdef RGBLIGHT_ENABLE
 
@@ -187,10 +189,12 @@ void rgblight_user(void) {
   };
 
   if (
+    rgblight_user_refresh      ||
     old_layer   != new_layer   || 
     old_lock[0] != new_lock[0] ||
     old_lock[1] != new_lock[1] ||
     old_lock[2] != new_lock[2]) {
+    rgblight_user_refresh = false;
     switch (new_layer) {
       case _BASE:
         rgblight_setrgb(0x03, 0x03, 0x03);
@@ -212,11 +216,11 @@ void rgblight_user(void) {
           break;
 
       case _TAIPO:
-          rgblight_setrgb(0x6, 0x02, 0x6);
+          rgblight_setrgb(0x6, 0x02, 0x6); // lilac
           break;
 
       case _F360:
-          rgblight_setrgb(0x18, 0x06, 0x00); //Orange
+          rgblight_setrgb(0x18, 0x06, 0x00); //orange
           // Corner whites
           rgblight_setrgb_range(0x9, 0x9, 0x9, 10, 14);
           rgblight_setrgb_range(0x9, 0x9, 0x9, 20, 24);
@@ -255,8 +259,11 @@ void rgblight_user(void) {
 void matrix_scan_user(void) {
   rgblight_user();
   #ifdef TAIPO_ENABLE
-  if (IS_LAYER_ON(_TAIPO)) {
-    taipo_matrix_scan_user();
+  if (get_highest_layer(layer_state) == _TAIPO) {
+    //taipo_matrix_scan_user();
+    
+    //green test LEDs
+    rgblight_setrgb_range(0x0, 0x9, 0x0, 10, 14);
   }
   #endif
   
@@ -264,25 +271,24 @@ void matrix_scan_user(void) {
 
 };
 
-/*
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-      return false;
-      break;
-    case EXT_F360:
-      if (record->event.pressed) {
-        layer_off(_F360);
-      }
-      return false;
-      break;
-  }
-  return true;
-}*/
-
 #ifdef TAIPO_ENABLE
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (IS_LAYER_ON(_TAIPO)) {
-        return taipo_process_record_user(keycode, record);
+    if (get_highest_layer(layer_state) == _TAIPO) {
+        switch (keycode)
+        {
+        case TP_TLP ... TP_ROT:
+          //return taipo_process_record_user(keycode, record);
+
+          //green test LED
+          rgblight_setrgb_at(0x0, 0x9, 0x0, 9);
+          return true;
+          break;
+        
+        default:
+          return true;
+          break;
+        }
+        
     } else {
         return true;
     }

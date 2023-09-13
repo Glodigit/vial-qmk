@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-// Split for Vial custom keycodes
-enum taipo_keycode {
-    TP_TLP = QK_USER_0,
+//Default Taipo keycodes (without gamepad)
+enum custom_keycodes {
+    TP_TLP = QK_USER, 
     TP_TLR,
     TP_TLM,
     TP_TLI,
@@ -23,10 +23,8 @@ enum taipo_keycode {
     TP_BRM,
     TP_BRI,
     TP_RIT,
-    TP_ROT
-};
-enum taipo_keycode_cont {
-    KC_LAYER0 = SAFE_RANGE,
+    TP_ROT,
+    KC_LAYER0,
     KC_LAYER1,
     KC_LAYER2,
     KC_LAYER3,
@@ -35,10 +33,11 @@ enum taipo_keycode_cont {
     KC_MOD_GS,
     KC_MOD_AC,
     KC_MOD_AS,
+    KC_MOD_RS,
     KC_MOD_CS,
     KC_MOD_GAC,
     KC_MOD_GAS,
     KC_MOD_GCS,
     KC_MOD_ACS,
-    KC_MOD_GACS,
+    KC_MOD_GACS
 };

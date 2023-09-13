@@ -44,6 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Taipo
 #ifndef VIAL_ENABLE
 #define TAIPO_ENABLE  // Taipo + Vial too large for Pro Micro
+#define TAIPO_FLAVOR_POSH
 #endif
 
 #define ONESHOT_TIMEOUT 1000
