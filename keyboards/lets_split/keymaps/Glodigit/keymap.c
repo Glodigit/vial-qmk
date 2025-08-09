@@ -260,10 +260,10 @@ void matrix_scan_user(void) {
   rgblight_user();
   #ifdef TAIPO_ENABLE
   if (get_highest_layer(layer_state) == _TAIPO) {
-    //taipo_matrix_scan_user();
+    taipo_matrix_scan_user();
     
     //green test LEDs
-    rgblight_setrgb_range(0x0, 0x9, 0x0, 10, 14);
+    //rgblight_setrgb_range(0x0, 0x9, 0x0, 10, 14);
   }
   #endif
   
@@ -277,10 +277,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch (keycode)
         {
         case TP_TLP ... TP_ROT:
-          //return taipo_process_record_user(keycode, record);
+          return taipo_process_record_user(keycode, record);
 
           //green test LED
-          rgblight_setrgb_at(0x0, 0x9, 0x0, 9);
+          //rgblight_setrgb_at(0x0, 0x9, 0x0, 9);
           return true;
           break;
         

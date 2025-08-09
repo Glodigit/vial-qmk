@@ -42,12 +42,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCING_DELAY 36
 
 // Taipo
-#ifndef VIAL_ENABLE
+//#ifndef VIAL_ENABLE
 #define TAIPO_ENABLE  // Taipo + Vial too large for Pro Micro
 #define TAIPO_FLAVOR_POSH
-#endif
+//#endif
 
-#define ONESHOT_TIMEOUT 1000
+//suspect causing issues
+//#define ONESHOT_TIMEOUT 1000
 
 // Unicode
 #define UNICODE_SELECTED_MODES UNICODE_MODE_WINDOWS
